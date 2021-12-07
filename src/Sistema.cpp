@@ -202,6 +202,9 @@ string Sistema::list_messages(int id) {
 	return "list_messages NÃO IMPLEMENTADO";
 }
 
+//essas funções find estão todas erradas em termos semanticos
+//uma vez que vc retornar o endereço da variável usuário ela vai ser destruída por sair do escopo da função
+//da forma como vc está armazenando vc pode retornar um iterator ou uma cópia
 Usuario * Sistema::findUsuarioByEmail(string email){
 	for (Usuario usuario : this->usuarios) {
 		if (usuario.email == email) {
