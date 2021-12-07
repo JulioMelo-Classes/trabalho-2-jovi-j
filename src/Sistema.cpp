@@ -20,19 +20,20 @@ string Sistema::create_user (const string email, const string senha, const strin
 	if (this->findUsuarioByEmail(email) != NULL) {
 		return "Usuário já existe!	";
 	}
-	Usuario::Usuario usuario(&this->idUsuario, email, senha, nome);
+	Usuario usuario(&this->idUsuario, email, senha, nome);
 	this->usuarios.push_back(usuario);
 	return "Usuario criado";
 }
 
 std::string Sistema::delete_user (const std::string email, const std::string senha){
-	Usuario::Usuario * usuario = this->findUsuarioByEmail(email);
+	Usuario * usuario = this->findUsuarioByEmail(email);
 	if (usuario == NULL) {
 		return "Usuario não cadastrado!";
 	}
 	else{
 		if (usuario->senha == senha) {
-			this->usuarios.erase(std::remove(this->usuarios.begin(), this->usuarios.end(), *usuario), this->usuarios.end());
+			//isso aqui só funciona se for possível comparar usuários, sugiro vc usar primeiro find_if e depois erase
+			//this->usuarios.erase(std::remove(this->usuarios.begin(), this->usuarios.end(), *usuario), this->usuarios.end());
 			return "Usuario deletado";
 		}
 		else{
@@ -42,7 +43,7 @@ std::string Sistema::delete_user (const std::string email, const std::string sen
 }
 
 string Sistema::login(const string email, const string senha) {
-	Usuario::Usuario * usuario = this->findUsuarioByEmail(email);
+	Usuario * usuario = this->findUsuarioByEmail(email);
 	if (usuario == NULL) {
 		return "Senha ou usuário inválidos!";
 	}
@@ -129,7 +130,8 @@ string Sistema::remove_server(int id, const string nome) {
 	}
 	else{
 		if(this->findServidorByNome(nome)->id == id){
-			this->servidores.erase(std::remove(this->servidores.begin(), this->servidores.end(), *this->findServidorByNome(nome)), this->servidores.end());
+			//isso aqui só funciona se for possível comparar servidores, sugiro vc tentar usar primeiro find_if e depois o remove.
+			//this->servidores.erase(std::remove(this->servidores.begin(), this->servidores.end(), *this->findServidorByNome(nome)), this->servidores.end());
 			return "Servidor removido com sucesso!";
 		}
 		else{
@@ -146,7 +148,9 @@ string Sistema::enter_server(int id, const string nome, const string codigo) {
 	else{
 		if (this->findServidorByNome(nome)->codigoConvite == codigo || this->findUsuarioById(id)->id == this->currentUserId)
 		{
-			this->usuariosLogados.insert(std::map<int, std::pair<unsigned int, unsigned int>>::value_type(id, std::pair<unsigned int, unsigned int>(this->findServidorByNome(nome)->id, 0)));
+			//c++ é verboso, mas não tanto assim, vc pode usar make_pair nesse caso, o compilador resolve os tipos pra vc
+			//this->usuariosLogados.insert(std::map<int, std::pair<unsigned int, unsigned int>>::value_type(id, std::pair<unsigned int, unsigned int>(this->findServidorByNome(nome)->id, 0)));
+			this->usuariosLogados.insert(make_pair(id, make_pair(this->findServidorByNome(nome)->id, 0)));
 			return "Entrando no servidor " + this->findServidorByNome(nome)->nome;
 		}
 		else
@@ -199,7 +203,7 @@ string Sistema::list_messages(int id) {
 }
 
 Usuario * Sistema::findUsuarioByEmail(string email){
-	for (Usuario::Usuario usuario : this->usuarios) {
+	for (Usuario usuario : this->usuarios) {
 		if (usuario.email == email) {
 			return &usuario;
 		}
@@ -208,7 +212,7 @@ Usuario * Sistema::findUsuarioByEmail(string email){
 }
 
 Usuario * Sistema::findUsuarioById(unsigned int id){
-	for (Usuario::Usuario usuario : this->usuarios) {
+	for (Usuario usuario : this->usuarios) {
 		if (usuario.id == id) {
 			return &usuario;
 		}

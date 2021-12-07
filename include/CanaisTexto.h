@@ -9,9 +9,9 @@ class CanalTexto {
 	public:
 	unsigned int id;
 	std::string nome;
-	Usuario::Usuario* dono;
-	std::vector<Mensagem::Mensagem> mensagens;
-	CanalTexto(unsigned int *id, std::string nome, Usuario::Usuario* dono){
+	Usuario* dono;
+	std::vector<Mensagem> mensagens;
+	CanalTexto(unsigned int *id, std::string nome, Usuario* dono){
 		this->id = *id;
 		this->nome = nome;
 		this->dono = dono;

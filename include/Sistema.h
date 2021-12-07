@@ -11,8 +11,8 @@
 // Sistema deve concentrar todas as operações do Concordo
 class Sistema {
 	private:
-		std::vector<Usuario::Usuario> usuarios;
-		std::vector<Servidor::Servidor> servidores;
+		std::vector<Usuario> usuarios;
+		std::vector<Servidor> servidores;
 		std::map<int, std::pair<unsigned int, unsigned int>> usuariosLogados;
 		unsigned int currentUserId = 0;
 		unsigned int idUsuario = 1;

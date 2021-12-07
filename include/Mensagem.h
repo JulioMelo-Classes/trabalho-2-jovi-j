@@ -7,10 +7,10 @@ class Mensagem{
 public:
 	unsigned int id;
 	std::string dataHora;
-	Usuario::Usuario * enviadaPor;
+	Usuario * enviadaPor;
 	std::string conteudo;
 
-	Mensagem(unsigned int *id, std::string dataHora, Usuario::Usuario * enviadaPor, std::string conteudo){
+	Mensagem(unsigned int *id, std::string dataHora, Usuario * enviadaPor, std::string conteudo){
 		this->id = *id;
 		this->dataHora = dataHora;
 		this->enviadaPor = enviadaPor;

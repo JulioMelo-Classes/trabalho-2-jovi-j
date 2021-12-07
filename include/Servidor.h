@@ -7,14 +7,14 @@
 class Servidor {
 	public:
 		unsigned int id;
-		Usuario::Usuario* dono;
+		Usuario* dono;
 		std::string nome;
 		std::string descricao;
 		std::string codigoConvite = "";
-		std::vector<CanalTexto::CanalTexto> canaisTexto;
-		std::vector<Usuario::Usuario*> participantes;
+		std::vector<CanalTexto> canaisTexto;
+		std::vector<Usuario*> participantes;
 
-		Servidor(unsigned int id, Usuario::Usuario* dono, std::string nome);
+		Servidor(unsigned int id, Usuario* dono, std::string nome);
 
 
 };
