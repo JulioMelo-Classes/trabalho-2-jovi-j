@@ -15,6 +15,7 @@ string Sistema::quit() {
   return "Saindo...";
 }
 
+//Pro checkin 1 estaria quase ok, faltando só gerar automaticamente o id.
 string Sistema::create_user (const string email, const string senha, const string nome) {
 	std::cout << "Criando Usuário " << nome << "(" << email << ")" << std::endl;
 	if (this->findUsuarioByEmail(email) != NULL) {
@@ -74,6 +75,8 @@ string Sistema::disconnect(int id) {
 		}
 }
 
+//Pro checkin 2 vou considerar 0.2 uma vez que a lógica faz sentido mas você está usando muitas
+//estruturas da forma errada e ainda houveram muitos erros para eu resolver.
 string Sistema::create_server(int id, const string nome) {
 	if (this->findServidorByNome(nome) != NULL) {
 		return "Servidor já existe!";
