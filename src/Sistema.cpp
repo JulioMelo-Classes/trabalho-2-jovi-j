@@ -20,7 +20,7 @@ string Sistema::create_user (const string email, const string senha, const strin
 	if (this->findUsuarioByEmail(email) != NULL) {
 		return "Usuário já existe!	";
 	}
-	Usuario usuario(&this->idUsuario, email, senha, nome);
+	Usuario usuario(&this->idUsuario, email, senha, nome); //tive que corrigir a forma como vc declara o tipo Usuario, em todos os lugares estava Usuario::Usuario, não sei se compilou com vc, mas não compilou pra mim.
 	this->usuarios.push_back(usuario);
 	return "Usuario criado";
 }
