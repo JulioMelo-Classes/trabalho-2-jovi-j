@@ -16,47 +16,154 @@ string Sistema::quit() {
 }
 
 string Sistema::create_user (const string email, const string senha, const string nome) {
-	return "create_user NÃO IMPLEMENTADO";
+	std::cout << "Criando Usuário " << nome << "(" << email << ")" << std::endl;
+	if (this->findUsuarioByEmail(email) != NULL) {
+		return "Usuário já existe!	";
+	}
+	Usuario::Usuario usuario(&this->idUsuario, email, senha, nome);
+	this->usuarios.push_back(usuario);
+	return "Usuario criado";
 }
 
 std::string Sistema::delete_user (const std::string email, const std::string senha){
-	return "delete_user NÃO IMPLEMENTADO";
+	Usuario::Usuario * usuario = this->findUsuarioByEmail(email);
+	if (usuario == NULL) {
+		return "Usuario não cadastrado!";
+	}
+	else{
+		if (usuario->senha == senha) {
+			this->usuarios.erase(std::remove(this->usuarios.begin(), this->usuarios.end(), *usuario), this->usuarios.end());
+			return "Usuario deletado";
+		}
+		else{
+			return "Senha incorreta";
+		}
+	}
 }
 
 string Sistema::login(const string email, const string senha) {
-	return "login NÃO IMPLEMENTADO";
+	Usuario::Usuario * usuario = this->findUsuarioByEmail(email);
+	if (usuario == NULL) {
+		return "Senha ou usuário inválidos!";
+	}
+	else{
+		if (usuario->senha == senha) {
+			usuariosLogados.insert(std::map<int, std::pair<unsigned int, unsigned int>>::value_type(usuario->id, std::pair<unsigned int, unsigned int>(0, 0)));
+			currentUserId = usuario->id;
+			return "Logado como " + usuario->email;
+		}
+	}
+	return "Senha ou usuário inválidos!";
+
 }
 
 string Sistema::disconnect(int id) {
-	return "disconnect NÃO IMPLEMENTADO";
+		if (currentUserId != 0){
+			if (usuariosLogados.find(id) != usuariosLogados.end()) {
+				string msg = "Desconectando usuário " + this->findUsuarioById(usuariosLogados.find(id)->first)->email;
+				usuariosLogados.erase(id);
+				return msg;
+			}
+			else{
+				return "Usuário não está logado!";
+			}
+		}
+		else{
+			return "Nenhum usuário logado, realize o login antes!";
+		}
 }
 
 string Sistema::create_server(int id, const string nome) {
-	return "create_server NÃO IMPLEMENTADO";
+	if (this->findServidorByNome(nome) != NULL) {
+		return "Servidor já existe!";
+	}
+	this->servidores.push_back(Servidor(id, (Usuario*)this->findUsuarioById(id), nome));
+	return "Servidor criado com sucesso!";
+
 }
 
 string Sistema::set_server_desc(int id, const string nome, const string descricao) {
-	return "set_server_desc NÃO IMPLEMENTADO";
+	Servidor * server = this->findServidorByNome(nome);
+	if (server == NULL) {
+		return "Servidor não encontrado!";
+	}
+	else{
+		if(server->id == id){
+			server->descricao = descricao;
+			return "Descrição alterada com sucesso!";
+		}
+		else{
+			return "Você não tem permissão para alterar esta descrição!";
+		}
+	}
 }
 
 string Sistema::set_server_invite_code(int id, const string nome, const string codigo) {
-	return "set_server_invite_code NÃO IMPLEMENTADO";
+	if(this->findServidorByNome(nome) == NULL){
+		return "Servidor não encontrado!";
+	}
+	else{
+		if(this->findServidorByNome(nome)->id == id){
+			this->findServidorByNome(nome)->codigoConvite = codigo;
+			return "Código alterado com sucesso!";
+		}
+		else{
+			return "Você não tem permissão para alterar este código!";
+		}
+	}
 }
 
 string Sistema::list_servers(int id) {
-	return "list_servers NÃO IMPLEMENTADO";
+	stringstream ss;
+	for(std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it){
+		if(it->id == id){
+			ss << it->nome << endl;
+		}
+	}
+	return ss.str();
 }
 
 string Sistema::remove_server(int id, const string nome) {
-	return "remove_server NÃO IMPLEMENTADO";
+	if (this->findServidorByNome(nome) == NULL) {
+		return "Servidor não encontrado!";
+	}
+	else{
+		if(this->findServidorByNome(nome)->id == id){
+			this->servidores.erase(std::remove(this->servidores.begin(), this->servidores.end(), *this->findServidorByNome(nome)), this->servidores.end());
+			return "Servidor removido com sucesso!";
+		}
+		else{
+			return "Você não tem permissão para remover este servidor!";
+		}
+	}
+	
 }
 
 string Sistema::enter_server(int id, const string nome, const string codigo) {
-	return "enter_server NÃO IMPLEMENTADO";
+	if (this->findServidorByNome(nome) == NULL) {
+		return "Servidor não encontrado!";
+	}
+	else{
+		if (this->findServidorByNome(nome)->codigoConvite == codigo || this->findUsuarioById(id)->id == this->currentUserId)
+		{
+			this->usuariosLogados.insert(std::map<int, std::pair<unsigned int, unsigned int>>::value_type(id, std::pair<unsigned int, unsigned int>(this->findServidorByNome(nome)->id, 0)));
+			return "Entrando no servidor " + this->findServidorByNome(nome)->nome;
+		}
+		else
+		{
+			return "Código de convite incorreto ou id inválido!";
+		}
+	}
 }
 
 string Sistema::leave_server(int id, const string nome) {
-	return "leave_server NÃO IMPLEMENTADO";
+	if (this->findServidorByNome(nome) == NULL) {
+		return "Servidor não encontrado!";
+	}
+	else{
+		this->usuariosLogados.erase(id);
+		return "Saindo do servidor " + this->findServidorByNome(nome)->nome;
+	}
 }
 
 string Sistema::list_participants(int id) {
@@ -91,3 +198,29 @@ string Sistema::list_messages(int id) {
 	return "list_messages NÃO IMPLEMENTADO";
 }
 
+Usuario * Sistema::findUsuarioByEmail(string email){
+	for (Usuario::Usuario usuario : this->usuarios) {
+		if (usuario.email == email) {
+			return &usuario;
+		}
+	}
+	return NULL;
+}
+
+Usuario * Sistema::findUsuarioById(unsigned int id){
+	for (Usuario::Usuario usuario : this->usuarios) {
+		if (usuario.id == id) {
+			return &usuario;
+		}
+	}
+	return NULL;
+}
+
+Servidor * Sistema::findServidorByNome(std::string nome){
+	for (Servidor servidor : this->servidores) {
+		if (servidor.nome == nome) {
+			return &servidor;
+		}
+	}
+	return NULL;
+}

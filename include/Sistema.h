@@ -1,6 +1,8 @@
 #ifndef SISTEMA_H
 #define SISTEMA_H
 #include <vector>
+#include "Usuario.h"
+#include "Servidor.h"
 #include <string>
 #include <iostream>
 #include <map>
@@ -8,6 +10,16 @@
 
 // Sistema deve concentrar todas as operações do Concordo
 class Sistema {
+	private:
+		std::vector<Usuario::Usuario> usuarios;
+		std::vector<Servidor::Servidor> servidores;
+		std::map<int, std::pair<unsigned int, unsigned int>> usuariosLogados;
+		unsigned int currentUserId = 0;
+		unsigned int idUsuario = 1;
+		unsigned int idServidor = 1;
+		unsigned int idMensagem = 1;
+		unsigned int idCanalTexto = 1;
+
   	public:
 
 		/*! Encerra o funcionamento do Concordo, o programa termina ao executar este comando.
@@ -181,6 +193,22 @@ class Sistema {
 				@return uma string vazia em caso de sucesso ou uma mensagem de erro em caso de falha.
 		*/
 		std::string list_messages(int id);
+
+		/*!
+			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu email
+			@param email o email do usuário que se deseja achar
+			@return usuario encontrado
+		*/
+		Usuario * findUsuarioByEmail(const std::string email);
+
+		/*!
+			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu id
+			@param id o id do usuário que se deseja achar
+			@return usuario encontrado
+		*/
+		Usuario * findUsuarioById(const unsigned int id);
+
+		Servidor * findServidorByNome(const std::string nome);
 };
 
 #endif

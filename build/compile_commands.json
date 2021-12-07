@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build",
+  "command": "/usr/bin/c++  -I/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include -g -o CMakeFiles/concordo.dir/src/Concordo.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Concordo.cpp",
+  "file": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Concordo.cpp"
+},
+{
+  "directory": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build",
+  "command": "/usr/bin/c++  -I/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include -g -o CMakeFiles/concordo.dir/src/Sistema.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Sistema.cpp",
+  "file": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Sistema.cpp"
+},
+{
+  "directory": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build",
+  "command": "/usr/bin/c++  -I/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include -g -o CMakeFiles/concordo.dir/src/Executor.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Executor.cpp",
+  "file": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Executor.cpp"
+},
+{
+  "directory": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build",
+  "command": "/usr/bin/c++  -I/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include -g -o CMakeFiles/concordo.dir/src/Usuario.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Usuario.cpp",
+  "file": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Usuario.cpp"
+},
+{
+  "directory": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build",
+  "command": "/usr/bin/c++  -I/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include -g -o CMakeFiles/concordo.dir/src/Servidor.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Servidor.cpp",
+  "file": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Servidor.cpp"
+}
+]

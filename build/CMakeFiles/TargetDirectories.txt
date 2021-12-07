@@ -1,0 +1,3 @@
+/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build/CMakeFiles/concordo.dir
+/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build/CMakeFiles/edit_cache.dir
+/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build/CMakeFiles/rebuild_cache.dir
