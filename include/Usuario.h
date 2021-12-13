@@ -10,8 +10,9 @@ public:
 	std::string email;
 	std::string senha;
 	
-	Usuario(unsigned int * id, std::string nome, std::string email, std::string senha);
-	bool operator==(Usuario & usuario);
+	Usuario(unsigned int id, std::string nome, std::string email, std::string senha);
+
+	bool operator==(const Usuario &u1);
 
 };
 

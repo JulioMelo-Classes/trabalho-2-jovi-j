@@ -200,32 +200,32 @@ class Sistema {
 			@param email o email do usuário que se deseja achar
 			@return usuario encontrado
 		*/
-		Usuario * findUsuarioByEmail(const std::string email);
+		Usuario findUsuarioByEmail(const std::string email);
 
 		/*!
 			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu id
 			@param id o id do usuário que se deseja achar
 			@return usuario encontrado
 		*/
-		Usuario * findUsuarioById(const unsigned int id);
+		Usuario findUsuarioById(const unsigned int id);
 
 		/*!
 			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu id
 			@param id o id do usuário que se deseja achar
 			@return usuario encontrado
 		*/
-		Servidor * findServidorByNome(const std::string nome);
+		Servidor findServidorByNome(const std::string nome);
 		/*!
 			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu id
 			@param id o id do usuário que se deseja achar
 			@return usuario encontrado
 		*/
 
-		Servidor * findServidorById(const unsigned int id);
+		Servidor findServidorById(const unsigned int id);
 
-		CanalTexto * findCanalByNome(const std::string nome);
+		CanalTexto findCanalByNome(const std::string nome);
 
-		CanalTexto * findCanalById(const unsigned int id);
+		CanalTexto findCanalById(const unsigned int id);
 };
 
 #endif
