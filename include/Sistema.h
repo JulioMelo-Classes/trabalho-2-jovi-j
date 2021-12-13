@@ -6,13 +6,14 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <ctime>
 
 
 // Sistema deve concentrar todas as operações do Concordo
 class Sistema {
 	private:
-		std::vector<Usuario::Usuario> usuarios;
-		std::vector<Servidor::Servidor> servidores;
+		std::vector<Usuario> usuarios;
+		std::vector<Servidor> servidores;
 		std::map<int, std::pair<unsigned int, unsigned int>> usuariosLogados;
 		unsigned int currentUserId = 0;
 		unsigned int idUsuario = 1;
@@ -208,7 +209,23 @@ class Sistema {
 		*/
 		Usuario * findUsuarioById(const unsigned int id);
 
+		/*!
+			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu id
+			@param id o id do usuário que se deseja achar
+			@return usuario encontrado
+		*/
 		Servidor * findServidorByNome(const std::string nome);
+		/*!
+			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu id
+			@param id o id do usuário que se deseja achar
+			@return usuario encontrado
+		*/
+
+		Servidor * findServidorById(const unsigned int id);
+
+		CanalTexto * findCanalByNome(const std::string nome);
+
+		CanalTexto * findCanalById(const unsigned int id);
 };
 
 #endif

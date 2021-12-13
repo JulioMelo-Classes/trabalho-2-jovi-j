@@ -9,3 +9,8 @@ Usuario::Usuario(unsigned int *id, std::string nome, std::string email, std::str
 	this->senha = senha;
 	*id++;
 }
+
+bool operator==(Usuario &u1, Usuario &u2)
+{
+	return u1.id == u2.id;
+}
