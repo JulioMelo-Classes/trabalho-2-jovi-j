@@ -12,7 +12,7 @@ public:
 	std::string conteudo;
 	time_t dataHoraUnix;
 
-	Mensagem(unsigned int *id, Usuario * enviadaPor, std::string conteudo){
+	Mensagem(unsigned int *id, std::string dataHora, Usuario * enviadaPor, std::string conteudo){
 		this->id = *id;
 		this->enviadaPor = enviadaPor;
 		this->conteudo = conteudo;

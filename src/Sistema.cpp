@@ -15,6 +15,7 @@ string Sistema::quit() {
   return "Saindo...";
 }
 
+//Pro checkin 1 estaria quase ok, faltando só gerar automaticamente o id.
 string Sistema::create_user (const string email, const string senha, const string nome) {
 	std::cout << "Criando Usuário " << nome << "(" << email << ")" << std::endl;
 	if (this->findUsuarioByEmail(email) != NULL) {
@@ -32,7 +33,8 @@ std::string Sistema::delete_user (const std::string email, const std::string sen
 	}
 	else{
 		if (usuario->senha == senha) {
-			this->usuarios.erase(std::remove(this->usuarios.begin(), this->usuarios.end(), *usuario), this->usuarios.end());
+			//isso aqui só funciona se for possível comparar usuários, sugiro vc usar primeiro find_if e depois erase
+			//this->usuarios.erase(std::remove(this->usuarios.begin(), this->usuarios.end(), *usuario), this->usuarios.end());
 			return "Usuario deletado";
 		}
 		else{
@@ -73,6 +75,8 @@ string Sistema::disconnect(int id) {
 		}
 }
 
+//Pro checkin 2 vou considerar 0.2 uma vez que a lógica faz sentido mas você está usando muitas
+//estruturas da forma errada e ainda houveram muitos erros para eu resolver.
 string Sistema::create_server(int id, const string nome) {
 	if (this->findServidorByNome(nome) != NULL) {
 		return "Servidor já existe!";
@@ -129,9 +133,9 @@ string Sistema::remove_server(int id, const string nome) {
 	}
 	else{
 		if(this->findServidorByNome(nome)->id == id){
-			string msg = "Servidor " + this->findServidorByNome(nome)->nome + " removido com sucesso!";
-			this->servidores.erase(std::remove(this->servidores.begin(), this->servidores.end(), *this->findServidorByNome(nome)), this->servidores.end());
-			return msg;
+			//isso aqui só funciona se for possível comparar servidores, sugiro vc tentar usar primeiro find_if e depois o remove.
+			//this->servidores.erase(std::remove(this->servidores.begin(), this->servidores.end(), *this->findServidorByNome(nome)), this->servidores.end());
+			return "Servidor removido com sucesso!";
 		}
 		else{
 			return "Você não tem permissão para remover este servidor!";
@@ -147,8 +151,10 @@ string Sistema::enter_server(int id, const string nome, const string codigo) {
 	else{
 		if (this->findServidorByNome(nome)->codigoConvite == codigo || this->findUsuarioById(id)->id == this->currentUserId)
 		{
-			this->usuariosLogados.insert(std::map<int, std::pair<unsigned int, unsigned int>>::value_type(id, std::pair<unsigned int, unsigned int>(this->findServidorByNome(nome)->id, 0)));
-			return "Entrou no servidor " + this->findServidorByNome(nome)->nome;
+			//c++ é verboso, mas não tanto assim, vc pode usar make_pair nesse caso, o compilador resolve os tipos pra vc
+			//this->usuariosLogados.insert(std::map<int, std::pair<unsigned int, unsigned int>>::value_type(id, std::pair<unsigned int, unsigned int>(this->findServidorByNome(nome)->id, 0)));
+			this->usuariosLogados.insert(make_pair(id, make_pair(this->findServidorByNome(nome)->id, 0)));
+			return "Entrando no servidor " + this->findServidorByNome(nome)->nome;
 		}
 		else
 		{
@@ -317,19 +323,22 @@ string Sistema::list_messages(int id) {
 	return "Você não possúi nenhuma mensagem!";
 }
 
+//essas funções find estão todas erradas em termos semanticos
+//uma vez que vc retornar o endereço da variável usuário ela vai ser destruída por sair do escopo da função
+//da forma como vc está armazenando vc pode retornar um iterator ou uma cópia
 Usuario * Sistema::findUsuarioByEmail(string email){
-	for (std::vector<Usuario>::iterator it = this->usuarios.begin(); it != this->usuarios.end(); ++it) {
-		if (it->email == email) {
-			return &(*it);
+	for (Usuario usuario : this->usuarios) {
+		if (usuario.email == email) {
+			return &usuario;
 		}
 	}
 	return NULL;	
 }
 
 Usuario * Sistema::findUsuarioById(unsigned int id){
-	for (std::vector<Usuario>::iterator it = this->usuarios.begin(); it != this->usuarios.end(); ++it) {
-		if (it->id == id) {
-			return &(*it);
+	for (Usuario usuario : this->usuarios) {
+		if (usuario.id == id) {
+			return &usuario;
 		}
 	}
 	return NULL;
