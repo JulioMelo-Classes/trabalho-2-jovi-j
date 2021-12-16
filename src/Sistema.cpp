@@ -186,6 +186,8 @@ string Sistema::remove_channel(int id, const string nome) {
 	return "remove_channel NÃO IMPLEMENTADO";
 }
 
+//checkin 4.1 e 4.2 20% pelo .h com implementações inline
+
 string Sistema::enter_channel(int id, const string nome) {
 	return "enter_channel NÃO IMPLEMENTADO";
 }
@@ -194,6 +196,7 @@ string Sistema::leave_channel(int id) {
 	return "leave_channel NÃO IMPLEMENTADO";
 }
 
+//checkin 4.3 e 4.4 20% pelo .h com implementações inline
 string Sistema::send_message(int id, const string mensagem) {
 	return "send_message NÃO IMPLEMENTADO";
 }
