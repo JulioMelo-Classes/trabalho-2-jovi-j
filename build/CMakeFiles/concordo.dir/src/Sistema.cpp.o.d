@@ -112,7 +112,7 @@ CMakeFiles/concordo.dir/src/Sistema.cpp.o: \
  /usr/include/c++/11.1.0/bits/charconv.h \
  /usr/include/c++/11.1.0/bits/basic_string.tcc \
  /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/Servidor.h \
- /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/CanaisTexto.h \
+ /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/CanalTexto.h \
  /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/Mensagem.h \
  /usr/include/c++/11.1.0/ctime /usr/include/c++/11.1.0/iostream \
  /usr/include/c++/11.1.0/ostream /usr/include/c++/11.1.0/ios \

@@ -113,6 +113,6 @@ CMakeFiles/concordo.dir/src/Servidor.cpp.o: \
  /usr/include/c++/11.1.0/bits/stl_vector.h \
  /usr/include/c++/11.1.0/bits/stl_bvector.h \
  /usr/include/c++/11.1.0/bits/vector.tcc \
- /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/CanaisTexto.h \
+ /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/CanalTexto.h \
  /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/Mensagem.h \
  /usr/include/c++/11.1.0/ctime

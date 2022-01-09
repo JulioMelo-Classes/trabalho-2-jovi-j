@@ -139,7 +139,7 @@ CMakeFiles/concordo.dir/src/Concordo.cpp.o: \
  /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/Sistema.h \
  /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/Usuario.h \
  /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/Servidor.h \
- /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/CanaisTexto.h \
+ /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/CanalTexto.h \
  /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include/Mensagem.h \
  /usr/include/c++/11.1.0/ctime /usr/include/c++/11.1.0/map \
  /usr/include/c++/11.1.0/bits/stl_tree.h \

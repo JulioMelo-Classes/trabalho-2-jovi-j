@@ -9,6 +9,30 @@ Usuario::Usuario(unsigned int id, std::string nome, std::string email, std::stri
 	this->senha = senha;
 }
 
+std::string Usuario::getNome(){
+	return this->nome;
+}
+
+void Usuario::setNome(std::string nome){
+	this->nome = nome;
+}
+
+std::string Usuario::getEmail(){
+	return this->email;
+}
+
+void Usuario::setEmail(std::string email){
+	this->email = email;
+}
+
+std::string Usuario::getSenha(){
+	return this->senha;
+}
+
+void Usuario::setSenha(std::string senha){
+	this->senha = senha;
+}
+
 bool Usuario::operator==(const Usuario &u1){
 	return this->id == u1.id;
 }

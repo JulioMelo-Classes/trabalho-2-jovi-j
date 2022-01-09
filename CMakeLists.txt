@@ -13,6 +13,8 @@ add_executable( concordo
 				src/Executor.cpp
                 src/Usuario.cpp
                 src/Servidor.cpp
+                src/Mensagem.cpp
+                src/CanalTexto.cpp
 )
 
 # The end

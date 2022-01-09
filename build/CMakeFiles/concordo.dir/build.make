@@ -139,13 +139,43 @@ CMakeFiles/concordo.dir/src/Servidor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/concordo.dir/src/Servidor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Servidor.cpp -o CMakeFiles/concordo.dir/src/Servidor.cpp.s
 
+CMakeFiles/concordo.dir/src/Mensagem.cpp.o: CMakeFiles/concordo.dir/flags.make
+CMakeFiles/concordo.dir/src/Mensagem.cpp.o: ../src/Mensagem.cpp
+CMakeFiles/concordo.dir/src/Mensagem.cpp.o: CMakeFiles/concordo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/concordo.dir/src/Mensagem.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/concordo.dir/src/Mensagem.cpp.o -MF CMakeFiles/concordo.dir/src/Mensagem.cpp.o.d -o CMakeFiles/concordo.dir/src/Mensagem.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Mensagem.cpp
+
+CMakeFiles/concordo.dir/src/Mensagem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/concordo.dir/src/Mensagem.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Mensagem.cpp > CMakeFiles/concordo.dir/src/Mensagem.cpp.i
+
+CMakeFiles/concordo.dir/src/Mensagem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/concordo.dir/src/Mensagem.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Mensagem.cpp -o CMakeFiles/concordo.dir/src/Mensagem.cpp.s
+
+CMakeFiles/concordo.dir/src/CanalTexto.cpp.o: CMakeFiles/concordo.dir/flags.make
+CMakeFiles/concordo.dir/src/CanalTexto.cpp.o: ../src/CanalTexto.cpp
+CMakeFiles/concordo.dir/src/CanalTexto.cpp.o: CMakeFiles/concordo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/concordo.dir/src/CanalTexto.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/concordo.dir/src/CanalTexto.cpp.o -MF CMakeFiles/concordo.dir/src/CanalTexto.cpp.o.d -o CMakeFiles/concordo.dir/src/CanalTexto.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/CanalTexto.cpp
+
+CMakeFiles/concordo.dir/src/CanalTexto.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/concordo.dir/src/CanalTexto.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/CanalTexto.cpp > CMakeFiles/concordo.dir/src/CanalTexto.cpp.i
+
+CMakeFiles/concordo.dir/src/CanalTexto.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/concordo.dir/src/CanalTexto.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/CanalTexto.cpp -o CMakeFiles/concordo.dir/src/CanalTexto.cpp.s
+
 # Object files for target concordo
 concordo_OBJECTS = \
 "CMakeFiles/concordo.dir/src/Concordo.cpp.o" \
 "CMakeFiles/concordo.dir/src/Sistema.cpp.o" \
 "CMakeFiles/concordo.dir/src/Executor.cpp.o" \
 "CMakeFiles/concordo.dir/src/Usuario.cpp.o" \
-"CMakeFiles/concordo.dir/src/Servidor.cpp.o"
+"CMakeFiles/concordo.dir/src/Servidor.cpp.o" \
+"CMakeFiles/concordo.dir/src/Mensagem.cpp.o" \
+"CMakeFiles/concordo.dir/src/CanalTexto.cpp.o"
 
 # External object files for target concordo
 concordo_EXTERNAL_OBJECTS =
@@ -155,9 +185,11 @@ concordo: CMakeFiles/concordo.dir/src/Sistema.cpp.o
 concordo: CMakeFiles/concordo.dir/src/Executor.cpp.o
 concordo: CMakeFiles/concordo.dir/src/Usuario.cpp.o
 concordo: CMakeFiles/concordo.dir/src/Servidor.cpp.o
+concordo: CMakeFiles/concordo.dir/src/Mensagem.cpp.o
+concordo: CMakeFiles/concordo.dir/src/CanalTexto.cpp.o
 concordo: CMakeFiles/concordo.dir/build.make
 concordo: CMakeFiles/concordo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable concordo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable concordo"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/concordo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

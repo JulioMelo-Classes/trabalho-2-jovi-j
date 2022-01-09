@@ -129,6 +129,30 @@ concordo/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/concordo.dir/build.make CMakeFiles/concordo.dir/build
 .PHONY : concordo/fast
 
+src/CanalTexto.o: src/CanalTexto.cpp.o
+.PHONY : src/CanalTexto.o
+
+# target to build an object file
+src/CanalTexto.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/concordo.dir/build.make CMakeFiles/concordo.dir/src/CanalTexto.cpp.o
+.PHONY : src/CanalTexto.cpp.o
+
+src/CanalTexto.i: src/CanalTexto.cpp.i
+.PHONY : src/CanalTexto.i
+
+# target to preprocess a source file
+src/CanalTexto.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/concordo.dir/build.make CMakeFiles/concordo.dir/src/CanalTexto.cpp.i
+.PHONY : src/CanalTexto.cpp.i
+
+src/CanalTexto.s: src/CanalTexto.cpp.s
+.PHONY : src/CanalTexto.s
+
+# target to generate assembly for a file
+src/CanalTexto.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/concordo.dir/build.make CMakeFiles/concordo.dir/src/CanalTexto.cpp.s
+.PHONY : src/CanalTexto.cpp.s
+
 src/Concordo.o: src/Concordo.cpp.o
 .PHONY : src/Concordo.o
 
@@ -176,6 +200,30 @@ src/Executor.s: src/Executor.cpp.s
 src/Executor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/concordo.dir/build.make CMakeFiles/concordo.dir/src/Executor.cpp.s
 .PHONY : src/Executor.cpp.s
+
+src/Mensagem.o: src/Mensagem.cpp.o
+.PHONY : src/Mensagem.o
+
+# target to build an object file
+src/Mensagem.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/concordo.dir/build.make CMakeFiles/concordo.dir/src/Mensagem.cpp.o
+.PHONY : src/Mensagem.cpp.o
+
+src/Mensagem.i: src/Mensagem.cpp.i
+.PHONY : src/Mensagem.i
+
+# target to preprocess a source file
+src/Mensagem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/concordo.dir/build.make CMakeFiles/concordo.dir/src/Mensagem.cpp.i
+.PHONY : src/Mensagem.cpp.i
+
+src/Mensagem.s: src/Mensagem.cpp.s
+.PHONY : src/Mensagem.s
+
+# target to generate assembly for a file
+src/Mensagem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/concordo.dir/build.make CMakeFiles/concordo.dir/src/Mensagem.cpp.s
+.PHONY : src/Mensagem.cpp.s
 
 src/Servidor.o: src/Servidor.cpp.o
 .PHONY : src/Servidor.o
@@ -258,12 +306,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... concordo"
+	@echo "... src/CanalTexto.o"
+	@echo "... src/CanalTexto.i"
+	@echo "... src/CanalTexto.s"
 	@echo "... src/Concordo.o"
 	@echo "... src/Concordo.i"
 	@echo "... src/Concordo.s"
 	@echo "... src/Executor.o"
 	@echo "... src/Executor.i"
 	@echo "... src/Executor.s"
+	@echo "... src/Mensagem.o"
+	@echo "... src/Mensagem.i"
+	@echo "... src/Mensagem.s"
 	@echo "... src/Servidor.o"
 	@echo "... src/Servidor.i"
 	@echo "... src/Servidor.s"

@@ -15,7 +15,6 @@ class Sistema {
 		std::vector<Usuario> usuarios;
 		std::vector<Servidor> servidores;
 		std::map<int, std::pair<unsigned int, unsigned int>> usuariosLogados;
-		unsigned int currentUserId = 0;
 		unsigned int idUsuario = 1;
 		unsigned int idServidor = 1;
 		unsigned int idMensagem = 1;
@@ -210,22 +209,48 @@ class Sistema {
 		Usuario findUsuarioById(const unsigned int id);
 
 		/*!
-			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu id
-			@param id o id do usuário que se deseja achar
-			@return usuario encontrado
+			Realiza uma busca no vetor de servidores registrados no sistema, utilizando seu nome
+			@param nome o nome do servidor que se deseja achar
+			@return servidor encontrado
 		*/
 		Servidor findServidorByNome(const std::string nome);
-		/*!
-			Realiza uma busca no vetor de usuários registrados no sistema, utilizando seu id
-			@param id o id do usuário que se deseja achar
-			@return usuario encontrado
-		*/
 
+
+		/*!
+			Realiza uma busca no vetor de servidores registrados no sistema, utilizando seu id
+			@param id o id do servidor que se deseja achar
+			@return servidor encontrado
+		*/
 		Servidor findServidorById(const unsigned int id);
 
+		/*!
+			Realiza uma busca no vetor de canais registrados no sistema, utilizando seu nome
+			@param nome o nome do canal que se deseja achar
+			@return canal encontrado
+		*/
 		CanalTexto findCanalByNome(const std::string nome);
 
+		/*!
+			Realiza uma busca no vetor de canais registrados no sistema, utilizando seu id
+			@param id o id do canal que se deseja achar
+			@return canal encontrado
+		*/
 		CanalTexto findCanalById(const unsigned int id);
+
+		/*!
+			Verifica se o id passado pertence a algum usuário logado
+			@param id o id do usuário que se deseja verificar
+			@return se ele está logado(true) ou não(false)
+		*/
+		bool isUsuarioLogado(const unsigned int id);
+
+		/*!
+			Verifica se o id passado pertence a algum usuário logado em um servidor
+			@param id o id do usuario que se deseja verificar
+			@param idServidor o id do servidor que se deseja verificar
+			@return se ele está logado(true) ou não(false)
+		*/
+		bool isUsuarioOnServidor(const unsigned int id, const unsigned int idServidor);
 };
 
 #endif

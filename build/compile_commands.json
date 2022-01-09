@@ -23,5 +23,15 @@
   "directory": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build",
   "command": "/usr/bin/c++  -I/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include -g -o CMakeFiles/concordo.dir/src/Servidor.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Servidor.cpp",
   "file": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Servidor.cpp"
+},
+{
+  "directory": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build",
+  "command": "/usr/bin/c++  -I/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include -g -o CMakeFiles/concordo.dir/src/Mensagem.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Mensagem.cpp",
+  "file": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/Mensagem.cpp"
+},
+{
+  "directory": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/build",
+  "command": "/usr/bin/c++  -I/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/include -g -o CMakeFiles/concordo.dir/src/CanalTexto.cpp.o -c /home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/CanalTexto.cpp",
+  "file": "/home/jovi/Documentos/UF/LP1/trabalho/trabalho-2-jovi-j/src/CanalTexto.cpp"
 }
 ]
