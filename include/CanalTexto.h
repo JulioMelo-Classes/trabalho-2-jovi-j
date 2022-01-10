@@ -20,16 +20,18 @@ class CanalTexto {
 		}
 
 		unsigned int getId();
-		unsigned int setId(unsigned int id);
+		void setId(unsigned int id);
 
 		std::string getNome();
-		std::string setNome(std::string nome);
+		void setNome(std::string nome);
 
 		Usuario* getDono();
-		Usuario* setDono(Usuario* dono);
+		void setDono(Usuario* dono);
 		
 		std::vector<Mensagem> getMensagens();
-		std::vector<Mensagem> setMensagens(std::vector<Mensagem> mensagens);
+		void setMensagens(std::vector<Mensagem> mensagens);
+		void setMensagem(Mensagem mensagem);
+		
 
 		bool operator==(const CanalTexto &c){
 			return this->id == c.id;

@@ -33,9 +33,11 @@ class Servidor {
 		void setCodigoConvite(std::string codigoConvite);
 
 		std::vector<CanalTexto> getCanaisTexto();
+		void setCanalTexto(CanalTexto canalTexto);
 		void setCanaisTexto(std::vector<CanalTexto> canaisTexto);
 		
 		std::vector<Usuario*> getParticipantes();
+		void setParticipante(Usuario* participante);
 		void setParticipantes(std::vector<Usuario*> participantes);
 
 		bool operator==(const Servidor& s);

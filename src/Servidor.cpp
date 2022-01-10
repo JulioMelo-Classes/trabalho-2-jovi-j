@@ -56,12 +56,20 @@ void Servidor::setCanaisTexto(std::vector<CanalTexto> canaisTexto){
 	this->canaisTexto = canaisTexto;
 }
 
+void Servidor::setCanalTexto(CanalTexto canalTexto){
+	this->canaisTexto.push_back(canalTexto);
+}
+
 std::vector<Usuario*> Servidor::getParticipantes(){
 	return this->participantes;
 }
 
 void Servidor::setParticipantes(std::vector<Usuario*> participantes){
 	this->participantes = participantes;
+}
+
+void Servidor::setParticipante(Usuario* participante){
+	this->participantes.push_back(participante);
 }
 
 bool Servidor::operator==(const Servidor &servidor){

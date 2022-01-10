@@ -16,6 +16,14 @@ void Mensagem::setEnviadaPor(Usuario* enviadaPor){
 	this->enviadaPor = enviadaPor;
 }
 
+std::string Mensagem::getConteudo(){
+	return this->conteudo;
+}
+
+void Mensagem::setConteudo(std::string conteudo){
+	this->conteudo = conteudo;
+}
+
 std::string Mensagem::getDataHora(){
 	return this->dataHora;
 }

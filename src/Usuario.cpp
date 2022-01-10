@@ -9,6 +9,15 @@ Usuario::Usuario(unsigned int id, std::string nome, std::string email, std::stri
 	this->senha = senha;
 }
 
+
+unsigned int Usuario::getId(){
+	return this->id;
+}
+
+void Usuario::setId(unsigned int id){
+	this->id = id;
+}
+
 std::string Usuario::getNome(){
 	return this->nome;
 }

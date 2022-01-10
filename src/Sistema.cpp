@@ -17,7 +17,7 @@ string Sistema::quit() {
 
 //Pro checkin 1 estaria quase ok, faltando só gerar automaticamente o id.
 string Sistema::create_user (const string email, const string senha, const string nome) {
-	if (this->findUsuarioByEmail(email).getId() != 0) {
+	if (this->findUsuarioByEmail(email).getNome() != "") {
 		return "Usuário já existe!	";
 	}
 	std::cout << "Criando Usuário " << nome << "(" << email << ")" << std::endl;
@@ -30,11 +30,11 @@ string Sistema::create_user (const string email, const string senha, const strin
 
 std::string Sistema::delete_user (const std::string email, const std::string senha){
 	Usuario usuario = this->findUsuarioByEmail(email);
-	if (usuario.getId() == 0) {
+	if (usuario.getNome() == "") {
 		return "Usuario não cadastrado!";
 	}
 	else{
-		if (usuario.senha == senha) {
+		if (usuario.getSenha() == senha) {
 			//isso aqui só funciona se for possível comparar usuários, sugiro vc usar primeiro find_if e depois erase
 			this->usuarios.erase(std::remove(this->usuarios.begin(), this->usuarios.end(), usuario), this->usuarios.end());
 			return "Usuario deletado";
@@ -47,13 +47,13 @@ std::string Sistema::delete_user (const std::string email, const std::string sen
 
 string Sistema::login(const string email, const string senha) {
 	Usuario usuario = this->findUsuarioByEmail(email);
-	if (usuario.getId() == 0) {
+	if (usuario.getNome() == "") {
 		return "Senha ou usuário inválidos!";
 	}
 	else{
-		if (usuario.senha == senha) {
+		if (usuario.getSenha() == senha) {
 			usuariosLogados.insert(std::map<int, std::pair<unsigned int, unsigned int>>::value_type(usuario.getId(), std::pair<unsigned int, unsigned int>(0, 0)));
-			return "Logado como " + usuario.email;
+			return "Logado como " + usuario.getEmail();
 		}
 	}
 	return "Senha ou usuário inválidos!";
@@ -62,7 +62,7 @@ string Sistema::login(const string email, const string senha) {
 
 string Sistema::disconnect(int id){
 	if (this->isUsuarioLogado(id)){
-		string msg = "Usuário " + this->findUsuarioById(usuariosLogados.find(id)->first).email + " desconectado! ";
+		string msg = "Usuário " + this->findUsuarioById(usuariosLogados.find(id)->first).getEmail() + " desconectado! ";
 		usuariosLogados.erase(id);
 		return msg;
 	}
@@ -74,11 +74,11 @@ string Sistema::disconnect(int id){
 //Pro checkin 2 vou considerar 0.2 uma vez que a lógica faz sentido mas você está usando muitas
 //estruturas da forma errada e ainda houveram muitos erros para eu resolver.
 string Sistema::create_server(int id, const string nome) {
-	if (this->findServidorByNome(nome).getId() != 0) {
+	if (this->findServidorByNome(nome).getNome() != "") {
 		return "Um Servidor com este nome já existe!";
 	}
 	Usuario u = this->findUsuarioById(id);
-	if (u.getId() == 0) {
+	if (u.getNome() == "") {
 		return "Usuário não cadastrado!";
 	}
 	if (this->isUsuarioLogado(id)) {
@@ -93,17 +93,17 @@ string Sistema::create_server(int id, const string nome) {
 
 string Sistema::set_server_desc(int id, const string nome, const string descricao) {
 	Servidor server = this->findServidorByNome(nome);
-	if (server.getId() == 0) {
+	if (server.getNome() == "") {
 		return "Servidor não encontrado!";
 	}
 	else{
 		Usuario u = this->findUsuarioById(id);
-		if (u.getId() == 0) {
+		if (u.getNome() == "") {
 			return "Usuário não cadastrado!";
 		}
 		if(this->isUsuarioLogado(id)){
-			if(server.dono->id == u.getId()){
-				server.descricao = descricao;
+			if(server.getDono()->getId() == u.getId()){
+				server.setDescricao(descricao);
 				return "Descrição alterada com sucesso!";
 			}
 			else{
@@ -118,17 +118,17 @@ string Sistema::set_server_desc(int id, const string nome, const string descrica
 
 string Sistema::set_server_invite_code(int id, const string nome, const string codigo) {
 	Servidor server = this->findServidorByNome(nome);
-	if (server.getId() == 0) {
+	if (server.getNome() == "") {
 		return "Servidor não encontrado!";
 	}
 	else{
 		Usuario u = this->findUsuarioById(id);
-		if (u.getId() == 0) {
+		if (u.getNome() == "") {
 			return "Usuário não cadastrado!";
 		}
 		if(this->isUsuarioLogado(id)){
-			if(server.dono->id == u.getId()){
-				server.codigoConvite = codigo;
+			if(server.getDono()->getId() == u.getId()){
+				server.setCodigoConvite(codigo);
 				return "Código alterado com sucesso!";
 			}
 			else{
@@ -144,7 +144,7 @@ string Sistema::set_server_invite_code(int id, const string nome, const string c
 string Sistema::list_servers(int id){
 	if (this->isUsuarioLogado(id)){
 		for (Servidor servidor : this->servidores){
-			cout << servidor.nome << endl;
+			cout << servidor.getNome() << endl;
 		}
 		return "";
 	}
@@ -155,15 +155,15 @@ string Sistema::list_servers(int id){
 
 string Sistema::remove_server(int id, const string nome) {
 	Servidor servidor = this->findServidorByNome(nome);
-	if (servidor.getId() == 0) {
+	if (servidor.getNome() == "") {
 		return "Servidor não encontrado!";
 	}
 	else{
 		if (this->isUsuarioLogado(id)){
-			if (servidor.dono->id == id){
-				for(Usuario *usuario : servidor.participantes){
-					if(isUsuarioOnServidor(usuario->id, servidor.getId())){
-						this->leave_server(usuario->id, servidor.nome);
+			if (servidor.getDono()->getId() == id){
+				for(Usuario *usuario : servidor.getParticipantes()){
+					if(isUsuarioOnServidor(usuario->getId(), servidor.getId())){
+						this->leave_server(usuario->getId(), servidor.getNome());
 					}
 				}
 				this->servidores.erase(std::remove(this->servidores.begin(), this->servidores.end(), servidor), this->servidores.end());
@@ -181,22 +181,22 @@ string Sistema::remove_server(int id, const string nome) {
 
 string Sistema::enter_server(int id, const string nome, const string codigo) {
 	Servidor servidor = this->findServidorByNome(nome);
-	if (servidor.getId() == 0) {
+	if (servidor.getNome() == "") {
 		return "Servidor não encontrado!";
 	}
 	else{
-		if (servidor.codigoConvite == codigo){
+		if (servidor.getCodigoConvite() == codigo){
 			if (this->isUsuarioLogado(id)){
 				if (this->isUsuarioOnServidor(id, servidor.getId())){
 					return "O usuário já está nesse servidor!";
 				}
 				this->usuariosLogados.insert(make_pair(id, make_pair(servidor.getId(), 0)));
-				// se o usuário não estiver no vector servidor.participantes, então adiciona ele
-				if(std::find(servidor.participantes.begin(), servidor.participantes.end(), &this->findUsuarioById(id)) == servidor.participantes.end()){
-					servidor.participantes.push_back(&this->findUsuarioById(id));
+				Usuario usuario = this->findUsuarioById(id);
+				if(std::find(servidor.getParticipantes().begin(), servidor.getParticipantes().end(), &usuario) == servidor.getParticipantes().end()){
+					servidor.setParticipante(&usuario);
 				}
 				
-				return "Entrando no servidor " + servidor.nome;
+				return "Entrando no servidor " + servidor.getNome();
 			}
 			else{
 				return "Usuário não está logado!";
@@ -210,7 +210,8 @@ string Sistema::enter_server(int id, const string nome, const string codigo) {
 
 string Sistema::leave_server(int id, const string nome) {
 	Servidor servidor = this->findServidorByNome(nome);
-	if (servidor.getId() == 0){
+	Usuario usuario = this->findUsuarioById(id);
+	if (servidor.getNome() == ""){
 		return "Servidor não encontrado!";
 	}
 	if (!this->isUsuarioLogado(id)){
@@ -219,8 +220,9 @@ string Sistema::leave_server(int id, const string nome) {
 	if (this->isUsuarioOnServidor(id, servidor.getId())){
 		this->usuariosLogados.find(id)->second.first = 0;
 		this->usuariosLogados.find(id)->second.second = 0;
-		// remove o usuario do vector servidor.participantes
-		servidor.participantes.erase(std::remove(servidor.participantes.begin(), servidor.participantes.end(), &this->findUsuarioById(id)), servidor.participantes.end());
+		std::vector all_parts = servidor.getParticipantes();
+		all_parts.erase(std::remove(all_parts.begin(), all_parts.end(), &usuario), all_parts.end());
+		servidor.setParticipantes(all_parts);
 		return "Saindo do servidor " + nome;
 	}
 	else{
@@ -234,12 +236,12 @@ string Sistema::list_participants(int id){
 	}
 	else{
 		Servidor servidor = this->findServidorById(this->usuariosLogados[id].first);
-		if (servidor.getId() == 0){
+		if (servidor.getNome() == ""){
 			return "Servidor não encontrado!";
 		}
 		else{
-			for (Usuario *usuario : servidor.participantes){
-				cout << usuario->nome << endl;
+			for (Usuario *usuario : servidor.getParticipantes()){
+				cout << usuario->getNome() << endl;
 			}
 		}
 	}
@@ -248,10 +250,10 @@ string Sistema::list_participants(int id){
 
 string Sistema::list_channels(int id) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->id == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->first) {
 			stringstream ss;
-			for (std::vector<CanalTexto>::iterator it2 = it->canaisTexto.begin(); it2 != it->canaisTexto.end(); ++it2) {
-				ss << it2->nome << endl;
+			for (std::vector<CanalTexto>::iterator it2 = it->getCanaisTexto().begin(); it2 != it->getCanaisTexto().end(); ++it2) {
+				ss << it2->getNome() << endl;
 			}
 			std::cout << ss.str();
 		}else
@@ -269,30 +271,33 @@ string Sistema::create_channel(int id, const string nome) {
 	}
 	else{
 		Servidor servidor = this->findServidorById(this->usuariosLogados.find(id)->first);
-		if (servidor.getId() == 0){
+		if (servidor.getNome() == ""){
 			return "Erro, o usuário não está em nenhum servidor!";
 		}
 		else{
-			for (CanalTexto canal : servidor.canaisTexto){
-				if (canal.nome == nome){
+			for (CanalTexto canal : servidor.getCanaisTexto()){
+				if (canal.getNome() == nome){
 					return "Erro, o servidor já possui um canal com esse nome!";
 				}
 			}
-			CanalTexto canal = CanalTexto(this->idCanalTexto, nome, &this->findUsuarioById(id));
-			servidor.canaisTexto.push_back(canal);
-			return "Canal de texto " + canal.nome + " criado com sucesso!";
+			Usuario usuario = this->findUsuarioById(id);
+			CanalTexto canal = CanalTexto(this->idCanalTexto, nome, &usuario);
+			servidor.setCanalTexto(canal);
+			return "Canal de texto " + canal.getNome() + " criado com sucesso!";
 		}
 	}
 }
 
 string Sistema::remove_channel(int id, const string nome) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->id == this->usuariosLogados.find(id)->first) {
-			if (this->findCanalByNome(nome).getId() == 0) {
+		if (it->getId() == this->usuariosLogados.find(id)->first) {
+			if (this->findCanalByNome(nome).getNome() == "") {
 				return "Canal não encontrado!";
 			}
 			else {
-				it->canaisTexto.erase(std::remove(it->canaisTexto.begin(), it->canaisTexto.end(), this->findCanalByNome(nome)), it->canaisTexto.end());
+				std::vector<CanalTexto> canais = it->getCanaisTexto();
+				canais.erase(std::remove(canais.begin(), canais.end(), this->findCanalByNome(nome)), canais.end());
+				it->setCanaisTexto(canais);
 				return "Canal removido com sucesso!";
 			}
 		}
@@ -306,13 +311,13 @@ string Sistema::remove_channel(int id, const string nome) {
 
 string Sistema::enter_channel(int id, const string nome) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->id == this->usuariosLogados.find(id)->first) {
-			if (this->findCanalByNome(nome).getId() == 0) {
+		if (it->getId() == this->usuariosLogados.find(id)->first) {
+			if (this->findCanalByNome(nome).getNome() == "") {
 				return "Canal não encontrado!";
 			}
 			else {
 				this->usuariosLogados.find(id)->second.second = this->findCanalByNome(nome).getId();
-				return "O usuário " + this->findUsuarioById(id).email + " entrou no canal " + this->findCanalByNome(nome).nome;
+				return "O usuário " + this->findUsuarioById(id).getEmail() + " entrou no canal " + this->findCanalByNome(nome).getNome();
 			}
 		}
 		else
@@ -325,13 +330,13 @@ string Sistema::enter_channel(int id, const string nome) {
 
 string Sistema::leave_channel(int id) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->id == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->first) {
 			if (this->usuariosLogados.find(id)->second.second == 0) {
 				return "Você não está em nenhum canal!";
 			}
 			else {
 				this->usuariosLogados.find(id)->second.second = 0;
-				return "O usuário " + this->findUsuarioById(id).email + " saiu do canal " + this->findCanalById(this->usuariosLogados.find(id)->second.second).nome;
+				return "O usuário " + this->findUsuarioById(id).getEmail() + " saiu do canal " + this->findCanalById(this->usuariosLogados.find(id)->second.second).getNome();
 			}
 		}
 		else
@@ -344,14 +349,16 @@ string Sistema::leave_channel(int id) {
 
 string Sistema::send_message(int id, const string mensagem) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->id == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->first) {
 			if (this->usuariosLogados.find(id)->second.second == 0) {
 				return "Você não está em nenhum canal!";
 			}
 			else {
 				Usuario u = this->findUsuarioById(id);
-				it->canaisTexto.at(this->usuariosLogados.find(id)->second.second).mensagens.push_back(Mensagem(idMensagem, &u , mensagem));
-				idMensagem++;
+				std::vector<CanalTexto> canais = it->getCanaisTexto();
+				CanalTexto c = canais.at(this->usuariosLogados.find(id)->second.second);
+				c.setMensagem(Mensagem(idMensagem, &u , mensagem));
+				this->idMensagem++;
 				return "Mensagem enviada com sucesso!";
 			}
 		}
@@ -365,14 +372,14 @@ string Sistema::send_message(int id, const string mensagem) {
 
 string Sistema::list_messages(int id) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->id == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->first) {
 			if (this->usuariosLogados.find(id)->second.second == 0) {
 				return "Você não está em nenhum canal!";
 			}
 			else {
 				std::stringstream ss;
-				for (std::vector<Mensagem>::iterator it2 = it->canaisTexto.at(this->usuariosLogados.find(id)->second.second).mensagens.begin(); it2 != it->canaisTexto.at(this->usuariosLogados.find(id)->second.second).mensagens.end(); ++it2) {
-					ss << it2->enviadaPor->email << ": " << it2->conteudo << endl;
+				for (std::vector<Mensagem>::iterator it2 = it->getCanaisTexto().at(this->usuariosLogados.find(id)->second.second).getMensagens().begin(); it2 != it->getCanaisTexto().at(this->usuariosLogados.find(id)->second.second).getMensagens().end(); ++it2) {
+					ss << it2->getEnviadaPor()->getEmail() << ": " << it2->getConteudo() << endl;
 				}
 				std::cout << ss.str();
 				return "";
@@ -391,7 +398,7 @@ string Sistema::list_messages(int id) {
 //da forma como vc está armazenando vc pode retornar um iterator ou uma cópia
 Usuario Sistema::findUsuarioByEmail(string email){
 	for (Usuario u : this->usuarios) {
-		if (u.email == email) {
+		if (u.getEmail() == email) {
 			return u;
 		}
 	}
@@ -409,7 +416,7 @@ Usuario Sistema::findUsuarioById(unsigned int id){
 
 Servidor Sistema::findServidorByNome(std::string nome){
 	for (Servidor s : this->servidores) {
-		if (s.nome == nome) {
+		if (s.getNome() == nome) {
 			return s;
 		}
 	}
@@ -427,8 +434,8 @@ Servidor Sistema::findServidorById(unsigned int id){
 
 CanalTexto Sistema::findCanalByNome(std::string nome){
 	for(Servidor s : this->servidores){
-		for(CanalTexto c : s.canaisTexto){
-			if(c.nome == nome){
+		for(CanalTexto c : s.getCanaisTexto()){
+			if(c.getNome() == nome){
 				return c;
 			}
 		}
@@ -438,7 +445,7 @@ CanalTexto Sistema::findCanalByNome(std::string nome){
 
 CanalTexto Sistema::findCanalById(unsigned int id){
 	for(Servidor s : this->servidores){
-		for(CanalTexto c : s.canaisTexto){
+		for(CanalTexto c : s.getCanaisTexto()){
 			if(c.getId() == id){
 				return c;
 			}
