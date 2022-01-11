@@ -1,26 +1,16 @@
-# Base para a atividade 02 de LP1
 
-Use esse esqueleto de classes para iniciar a terceira atividade.
+# Atividade 02 de LP1
 
-Existe um executor que faz a interpretação dos comandos e executa o método correto do sistema.
+## Como compilar
 
-## Para compilar
+*Necessário ter o cmake instalado.*
 
-Com makefiles:
-```console
-mkdir build
-make
-```
-
-Com cmake:
 ```console
 mkdir build
 cd build
 cmake ..
 cmake --build .
 ```
-
-Escolha uma das duas formas de build e ignore a outra.
 
 ## Para executar
 Você pode rodar o sistema e em logo depois digitar os comandos seguidos de ENTER
@@ -34,3 +24,14 @@ Ou pode criar um arquivo de texto com uma lista de comandos (um por linha) e exe
 cd build
 ./concordo < ../data/script_comandos.txt
 ```
+
+## Funcionalidades Implementadas
+* Login/Logout/Criação de Usuário
+* CRUD de Servidores
+* Entrada/Saída de Servidores
+* CRUD de canais
+* Tratamento de Erros (Parcialmente)
+
+## Funcionalidades Ausentes
+* Entrada/Saída de Canais
+* CRUD de mensagens
