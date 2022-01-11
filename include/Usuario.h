@@ -4,13 +4,28 @@
 #include <vector>
 
 class Usuario{
-public:
+private:
 	unsigned int id;
 	std::string nome;
 	std::string email;
 	std::string senha;
+
+public:
+	Usuario(unsigned int id, std::string nome, std::string email, std::string senha);
+
+	unsigned int getId();
+	void setId(unsigned int id);
+
+	std::string getNome();
+	void setNome(std::string nome);
+
+	std::string getEmail();
+	void setEmail(std::string email);
+
+	std::string getSenha();
+	void setSenha(std::string senha);
 	
-	Usuario(unsigned int * id, std::string nome, std::string email, std::string senha);
+	bool operator==(const Usuario &u1);
 
 };
 
