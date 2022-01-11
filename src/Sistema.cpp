@@ -184,18 +184,16 @@ string Sistema::enter_server(int id, const string nome, const string codigo) {
 	if (servidor.getNome() == "") {
 		return "Servidor não encontrado!";
 	}
+	if (this->isUsuarioOnServidor(id, servidor.getId())){
+		return "O usuário já está nesse servidor!";
+	}
 	else{
 		if (servidor.getCodigoConvite() == codigo){
 			if (this->isUsuarioLogado(id)){
-				if (this->isUsuarioOnServidor(id, servidor.getId())){
-					return "O usuário já está nesse servidor!";
+				if(this->usuariosLogados.find(id)->second.first != 0){
+					this->leave_server(id, this->findUsuarioById(id).getNome());
 				}
-				this->usuariosLogados.insert(make_pair(id, make_pair(servidor.getId(), 0)));
-				Usuario usuario = this->findUsuarioById(id);
-				if(std::find(servidor.getParticipantes().begin(), servidor.getParticipantes().end(), &usuario) == servidor.getParticipantes().end()){
-					servidor.setParticipante(&usuario);
-				}
-				
+				this->usuariosLogados.find(id)->second.first = servidor.getId();
 				return "Entrando no servidor " + servidor.getNome();
 			}
 			else{
@@ -250,19 +248,16 @@ string Sistema::list_participants(int id){
 
 string Sistema::list_channels(int id) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->getId() == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->second.first) {
 			stringstream ss;
 			for (std::vector<CanalTexto>::iterator it2 = it->getCanaisTexto().begin(); it2 != it->getCanaisTexto().end(); ++it2) {
 				ss << it2->getNome() << endl;
 			}
 			std::cout << ss.str();
-		}else
-		{
-			return "Você não tem permissão para realizar esta operação ou não está em nenhum servidor!";
+			return "";
 		}
-		
 	}
-	return "Erro ao listar canais!";
+	return "O usuário não está em nenhum canal!";
 }
 
 string Sistema::create_channel(int id, const string nome) {
@@ -282,7 +277,8 @@ string Sistema::create_channel(int id, const string nome) {
 			}
 			Usuario usuario = this->findUsuarioById(id);
 			CanalTexto canal = CanalTexto(this->idCanalTexto, nome, &usuario);
-			servidor.setCanalTexto(canal);
+			servidor.addCanalTexto(canal);
+			this->idCanalTexto++;
 			return "Canal de texto " + canal.getNome() + " criado com sucesso!";
 		}
 	}
@@ -290,7 +286,7 @@ string Sistema::create_channel(int id, const string nome) {
 
 string Sistema::remove_channel(int id, const string nome) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->getId() == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->second.first) {
 			if (this->findCanalByNome(nome).getNome() == "") {
 				return "Canal não encontrado!";
 			}
@@ -311,7 +307,7 @@ string Sistema::remove_channel(int id, const string nome) {
 
 string Sistema::enter_channel(int id, const string nome) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->getId() == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->second.first) {
 			if (this->findCanalByNome(nome).getNome() == "") {
 				return "Canal não encontrado!";
 			}
@@ -330,26 +326,22 @@ string Sistema::enter_channel(int id, const string nome) {
 
 string Sistema::leave_channel(int id) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->getId() == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->second.first) {
 			if (this->usuariosLogados.find(id)->second.second == 0) {
 				return "Você não está em nenhum canal!";
 			}
 			else {
 				this->usuariosLogados.find(id)->second.second = 0;
-				return "O usuário " + this->findUsuarioById(id).getEmail() + " saiu do canal " + this->findCanalById(this->usuariosLogados.find(id)->second.second).getNome();
+				return "O usuário " + this->findUsuarioById(id).getEmail() + " saiu do canal!";
 			}
 		}
-		else
-		{
-			return "Você não tem permissão para realizar esta operação ou não está em nenhum servidor!";
-		}
 	}
-	return "Erro ao sair do canal!";
+	return "O usuário não está em nenhum canal!";
 }
 
 string Sistema::send_message(int id, const string mensagem) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->getId() == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->second.first) {
 			if (this->usuariosLogados.find(id)->second.second == 0) {
 				return "Você não está em nenhum canal!";
 			}
@@ -357,14 +349,10 @@ string Sistema::send_message(int id, const string mensagem) {
 				Usuario u = this->findUsuarioById(id);
 				std::vector<CanalTexto> canais = it->getCanaisTexto();
 				CanalTexto c = canais.at(this->usuariosLogados.find(id)->second.second);
-				c.setMensagem(Mensagem(idMensagem, &u , mensagem));
+				c.addMensagem(Mensagem(idMensagem, &u , mensagem));
 				this->idMensagem++;
-				return "Mensagem enviada com sucesso!";
+				return "";
 			}
-		}
-		else
-		{
-			return "Você não tem permissão para realizar esta operação ou não está em nenhum servidor!";
 		}
 	}
 	return "Erro ao enviar mensagem!";
@@ -372,25 +360,21 @@ string Sistema::send_message(int id, const string mensagem) {
 
 string Sistema::list_messages(int id) {
 	for (std::vector<Servidor>::iterator it = this->servidores.begin(); it != this->servidores.end(); ++it) {
-		if (it->getId() == this->usuariosLogados.find(id)->first) {
+		if (it->getId() == this->usuariosLogados.find(id)->second.first) {
 			if (this->usuariosLogados.find(id)->second.second == 0) {
 				return "Você não está em nenhum canal!";
 			}
 			else {
 				std::stringstream ss;
 				for (std::vector<Mensagem>::iterator it2 = it->getCanaisTexto().at(this->usuariosLogados.find(id)->second.second).getMensagens().begin(); it2 != it->getCanaisTexto().at(this->usuariosLogados.find(id)->second.second).getMensagens().end(); ++it2) {
-					ss << it2->getEnviadaPor()->getEmail() << ": " << it2->getConteudo() << endl;
+					ss << it2->getEnviadaPor()->getNome() << "< "<<it2->getDataHora() << ">" << ": " << it2->getConteudo() << endl;
 				}
 				std::cout << ss.str();
 				return "";
 			}
 		}
-		else
-		{
-			return "Você não tem permissão para realizar esta operação ou não está em nenhum servidor!";
-		}
 	}
-	return "Você não possúi nenhuma mensagem!";
+	return "O canal não possúi nenhuma mensagem!";
 }
 
 //essas funções find estão todas erradas em termos semanticos

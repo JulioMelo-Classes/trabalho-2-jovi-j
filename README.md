@@ -34,12 +34,3 @@ Ou pode criar um arquivo de texto com uma lista de comandos (um por linha) e exe
 cd build
 ./concordo < ../data/script_comandos.txt
 ```
-
-
-## Testes
-
-teste1.txt - parte de login, conexão, desconexão e tratamento de comandos errados.
-
-teste2.txt - criação de servidores, tratamento de erros na criação, modificação e listagem de servidores.
-
-teste3.txt - criação, entrada e 

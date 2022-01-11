@@ -32,7 +32,7 @@ void CanalTexto::setMensagens(std::vector<Mensagem> mensagens){
 	this->mensagens = mensagens;
 }
 
-void CanalTexto::setMensagem(Mensagem mensagem){
+void CanalTexto::addMensagem(Mensagem mensagem){
 	this->mensagens.push_back(mensagem);
 }
 

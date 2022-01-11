@@ -56,7 +56,7 @@ void Servidor::setCanaisTexto(std::vector<CanalTexto> canaisTexto){
 	this->canaisTexto = canaisTexto;
 }
 
-void Servidor::setCanalTexto(CanalTexto canalTexto){
+void Servidor::addCanalTexto(CanalTexto canalTexto){
 	this->canaisTexto.push_back(canalTexto);
 }
 

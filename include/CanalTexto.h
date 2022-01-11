@@ -30,7 +30,7 @@ class CanalTexto {
 		
 		std::vector<Mensagem> getMensagens();
 		void setMensagens(std::vector<Mensagem> mensagens);
-		void setMensagem(Mensagem mensagem);
+		void addMensagem(Mensagem mensagem);
 		
 
 		bool operator==(const CanalTexto &c){

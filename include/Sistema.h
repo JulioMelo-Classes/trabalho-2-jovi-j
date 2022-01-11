@@ -15,10 +15,10 @@ class Sistema {
 		std::vector<Usuario> usuarios;
 		std::vector<Servidor> servidores;
 		std::map<int, std::pair<unsigned int, unsigned int>> usuariosLogados;
-		unsigned int idUsuario = 0;
-		unsigned int idServidor = 0;
-		unsigned int idMensagem = 0;
-		unsigned int idCanalTexto = 0;
+		unsigned int idUsuario = 1;
+		unsigned int idServidor = 1;
+		unsigned int idMensagem = 1;
+		unsigned int idCanalTexto = 1;
 
   	public:
 

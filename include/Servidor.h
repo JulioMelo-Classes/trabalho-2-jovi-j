@@ -33,7 +33,7 @@ class Servidor {
 		void setCodigoConvite(std::string codigoConvite);
 
 		std::vector<CanalTexto> getCanaisTexto();
-		void setCanalTexto(CanalTexto canalTexto);
+		void addCanalTexto(CanalTexto canalTexto);
 		void setCanaisTexto(std::vector<CanalTexto> canaisTexto);
 		
 		std::vector<Usuario*> getParticipantes();
